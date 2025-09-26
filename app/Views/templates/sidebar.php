@@ -20,6 +20,15 @@
                         </p>
                     </a>
                 </li>
+                
+                <li class="nav-item">
+                    <a href="<?= base_url(strtolower(session()->get('jabatan'))) ?>/profile" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Profile
+                        </p>
+                    </a>
+                </li>
 
                 <?php if(session()->get('jabatan') == 'Admin'): ?>
                 <li class="nav-item">
@@ -31,6 +40,15 @@
                     </a>
                 </li>
                 <?php endif; ?>
+                
+                <li class="nav-item">
+                    <a href="<?= base_url(strtolower(session()->get('jabatan'))) ?>/program" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Program
+                        </p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="<?= base_url('login/logout'); ?>" class="nav-link">

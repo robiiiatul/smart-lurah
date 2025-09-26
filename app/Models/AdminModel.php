@@ -9,7 +9,7 @@ class AdminModel extends Model
     protected $table = 'user'; // Nama tabel
     protected $primaryKey = 'id_user'; // Primary key
     protected $allowedFields = [
-        'name', 'username', 'password', 'jabatan','no_hp','email','nik','penetapan_sk','tgl_sk','jmlh_insentif','no_rek'
+        'name', 'username', 'password', 'jabatan','no_hp','email','nik','penetapan_sk','tgl_sk','jmlh_insentif','no_rek','rt','rw','picture'
     ]; // Kolom yang diizinkan untuk operasi CRUD
 
     /**

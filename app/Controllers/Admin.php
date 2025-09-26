@@ -81,6 +81,18 @@ class Admin extends BaseController
 
     public function addUser()
     {
+        // ambil file gambar
+        $file = $this->request->getFile('picture');
+        $fileName = null;
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // bikin nama unik (biar gak tabrakan)
+            $fileName = $file->getRandomName();
+
+            // simpan ke folder public/uploads
+            $file->move(FCPATH . 'uploads', $fileName);
+        }
+
         $data = [
             'name' => $this->request->getPost('name'),
             'username' => $this->request->getPost('username'),
@@ -94,6 +106,9 @@ class Admin extends BaseController
             'tgl_sk' => $this->request->getPost('tgl_sk'),
             'jmlh_insentif' => $this->request->getPost('jmlh_insentif'),
             'no_rek' => $this->request->getPost('no_rek'),
+            'rt' => $this->request->getPost('rt'),
+            'rw' => $this->request->getPost('rw'),
+            'picture' => $fileName, 
         ];
 
         $this->adminModel->saveUser($data);
@@ -132,6 +147,8 @@ class Admin extends BaseController
             'tgl_sk' => $this->request->getPost('tgl_sk'),
             'jmlh_insentif' => $this->request->getPost('jmlh_insentif'),
             'no_rek' => $this->request->getPost('no_rek'),
+            'rt' => $this->request->getPost('rt'),
+            'rw' => $this->request->getPost('rw'),
         ];
 
         $this->adminModel->updateUser($data, $id_user);

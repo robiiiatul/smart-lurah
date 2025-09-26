@@ -29,113 +29,60 @@
                         <?php endif; ?>
                     </div>
 
-                    <table id="tablePengguna" class="table table-bordered table-striped">
-                        <thead>
-                            <tr class="table-success">
-                                <th>Nama</th>
-                                <th>Username</th>
-                                <th>Nomer HP</th>
-                                <th>Email</th>
-                                <th>Jabatan</th>
-                                <th>NIK</th>
-                                <th>Penetapan SK</th>
-                                <th>Tanggal SK</th>
-                                <th>Jumlah Insentif</th>
-                                <th>Nomer Rekening</th>    
-                                <?php if (session()->get('jabatan') == 'Admin') : ?>
-                                    <th>Aksi</th>
-                                <?php endif; ?>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data_user as $row) : ?>
-                                <tr>
-                                    <td><?= esc($row['name']) ?></td>
-                                    <td><?= esc($row['username']) ?></td>
-                                    <td><?= esc($row['no_hp']) ?></td>
-                                    <td><?= esc($row['email']) ?></td>
-                                    <td><?= esc($row['jabatan']) ?></td>
-                                    <td><?= esc($row['nik']) ?></td>
-                                    <td><?= esc($row['penetapan_sk']) ?></td>
-                                    <td><?= esc($row['tgl_sk']) ?></td>
-                                    <td><?= esc($row['jmlh_insentif']) ?></td>
-                                    <td><?= esc($row['no_rek']) ?></td>
-                                    <?php if (session()->get('jabatan') == 'Admin') :?> 
-                                    <td>
-                                        <!-- <a href="<?= base_url(route_to('admin.openUser', $row['id_user'])) ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a> -->
-                                        <a href="<?= base_url(route_to('admin.formEditUser', $row['id_user'])) ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                        <a href="javascript:void(0);" data-id="<?= $row['id_user'] ?>" class="btn btn-danger btn-sm item-delete"><i class="fa fa-trash"></i></a>
-                                    </td>
+                    <div class="table-responsive">
+                        <table id="tablePengguna" class="table table-bordered table-striped">
+                            <thead>
+                                <tr class="table-success">
+                                    <th>Nama</th>
+                                    <th>Username</th>
+                                    <th>Nomer HP</th>
+                                    <th>Email</th>
+                                    <th>Jabatan</th>
+                                    <th>RW</th>
+                                    <th>RT</th>
+                                    <th>NIK</th>
+                                    <th>Penetapan SK</th>
+                                    <th>Tanggal SK</th>
+                                    <th>Jumlah Insentif</th>
+                                    <th>Nomer Rekening</th>    
+                                    <th>Foto</th>    
+                                    <?php if (session()->get('jabatan') == 'Admin') : ?>
+                                        <th>Aksi</th>
                                     <?php endif; ?>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($data_user as $row) : ?>
+                                    <tr>
+                                        <td><?= esc($row['name']) ?></td>
+                                        <td><?= esc($row['username']) ?></td>
+                                        <td><?= esc($row['no_hp']) ?></td>
+                                        <td><?= esc($row['email']) ?></td>
+                                        <td><?= esc($row['jabatan']) ?></td>
+                                        <td><?= esc($row['rw']) ?></td>
+                                        <td><?= esc($row['rt']) ?></td>
+                                        <td><?= esc($row['nik']) ?></td>
+                                        <td><?= esc($row['penetapan_sk']) ?></td>
+                                        <td><?= esc($row['tgl_sk']) ?></td>
+                                        <td><?= esc($row['jmlh_insentif']) ?></td>
+                                        <td><?= esc($row['no_rek']) ?></td>
+                                        <td><img src="<?= base_url('uploads/' . $row['picture']) ?>" alt="Foto" width="100"></td>
+                                        <?php if (session()->get('jabatan') == 'Admin') :?> 
+                                        <td>
+                                            <!-- <a href="<?= base_url(route_to('admin.openUser', $row['id_user'])) ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a> -->
+                                            <a href="<?= base_url(route_to('admin.formEditUser', $row['id_user'])) ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:void(0);" data-id="<?= $row['id_user'] ?>" class="btn btn-danger btn-sm item-delete"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        <?php endif; ?>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-</div>
-
-<!-- Modal tambah -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambah-user" class="modal fade">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="LabelModal">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
-                    <span arial-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?= form_open('admin.addUser') ?>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>">
-                            <div class="text-danger"><?= session('errors.name') ?></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="username" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>">
-                            <div class="text-danger"><?= session('errors.username') ?></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password" name="password">
-                            <div class="text-danger"><?= session('errors.password') ?></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Role</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="role">
-                                <option value="" selected>-- Pilih --</option>
-                                <option value="HRD" <?= old('role') == 'HRD' ? 'selected' : '' ?>>HRD</option>
-                                <option value="Supervisor" <?= old('role') == 'Supervisor' ? 'selected' : '' ?>>Supervisor</option>
-                                <option value="Karyawan" <?= old('role') == 'Karyawan' ? 'selected' : '' ?>>Karyawan</option>
-                            </select>
-                            <div class="text-danger"><?= session('errors.role') ?></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-10 offset-md-2">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button>
-                        </div>
-                    </div>
-                <?= form_close() ?>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Modal dialog delete data-->
@@ -162,7 +109,7 @@
 <script>
     // Initialize DataTable plugin
     $('#tablePengguna').DataTable({
-        "ordering": false
+        "scrollX": true
     });
 
     // Show delete confirmation modal
